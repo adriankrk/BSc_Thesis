@@ -18,17 +18,17 @@ namespace Katalog.WebScraping
 
             var opinions = htmlNodesGoldenLine.Select(node => HttpUtility.HtmlDecode(node.InnerText).Trim());
 
-            //IEnumerable<HtmlNode> htmlNodesGoldenLineNextPage = GetElementsByClasses(htmlDocGoldenLine, "li", new List<string>() { "next" });
-            //while (htmlNodesGoldenLineNextPage.Count() != 0)
-            //{
-            //    string nextPage = @"https://www.goldenline.pl" + htmlNodesGoldenLineNextPage.ElementAt(0).InnerHtml.Split('\"')[1];
-            //    htmlDocGoldenLine = webGoldenLine.Load(webPageGoldenLine);
-            //    htmlNodesGoldenLine = GetElementsByClasses(htmlDocGoldenLine, "span", new List<string>() { "summary" });
+            IEnumerable<HtmlNode> htmlNodesGoldenLineNextPage = GetElementsByClasses(htmlDocGoldenLine, "li", new List<string>() { "next" });
+            while (htmlNodesGoldenLineNextPage.Count() != 0)
+            {
+                string nextPage = @"https://www.goldenline.pl" + htmlNodesGoldenLineNextPage.ElementAt(0).InnerHtml.Split('\"')[1];
+                htmlDocGoldenLine = webGoldenLine.Load(webPageGoldenLine);
+                htmlNodesGoldenLine = GetElementsByClasses(htmlDocGoldenLine, "span", new List<string>() { "summary" });
 
-            //    opinions.Concat(htmlNodesGoldenLine.Select(node => HttpUtility.HtmlDecode(node.InnerText)));
+                opinions.Concat(htmlNodesGoldenLine.Select(node => HttpUtility.HtmlDecode(node.InnerText)));
 
-            //    htmlNodesGoldenLineNextPage = GetElementsByClasses(htmlDocGoldenLine, "li", new List<string>() { "next" });
-            //}
+                htmlNodesGoldenLineNextPage = GetElementsByClasses(htmlDocGoldenLine, "li", new List<string>() { "next" });
+            }
 
             return opinions.ToList();
         }
@@ -69,17 +69,6 @@ namespace Katalog.WebScraping
 
             var opinions = htmlNodesAbsolvent.Select(node => HttpUtility.HtmlDecode(node.InnerText).Trim());
             return opinions.ToList();
-
-            //IEnumerable<HtmlNode> htmlNodesAbsolventNextPage = GetElementsByClasses(htmlDocAbsolvent, "a", new List<string>() { "next-prev" });
-            //while (htmlNodesAbsolventNextPage.Count() != 0)
-            //{
-            //    var str = htmlNodesAbsolventNextPage.ElementAt(0).OuterHtml.Split('\"')[3].Replace("amp;", "").Split('?')[1];
-            //    htmlAbsolvent = @"https://www.absolvent.pl/pracodawcy/profil-accenture/opinie" + "?" + str;
-            //    htmlDocAbsolvent = webAbsolvent.Load(htmlAbsolvent);
-            //    htmlNodesAbsolvent = GetElementsByClasses(htmlDocAbsolvent, "div", new List<string>() { "inner-details" });
-            //    PrintOpinions(htmlNodesAbsolvent);
-            //    htmlNodesAbsolventNextPage = GetElementsByClasses(htmlDocAbsolvent, "a", new List<string>() { "next-prev" });
-            //}
         }
 
         private static IEnumerable<HtmlNode> GetElementsByClasses(HtmlDocument doc, string tag, IEnumerable<String> classNames)
