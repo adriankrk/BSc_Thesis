@@ -1,0 +1,28 @@
+﻿@model Katalog.Models.CustomerListContainerViewModel
+@using MvcContrib.UI.Grid
+@using MvcContrib.UI.Pager
+
+@{
+    ViewBag.Title = "Lista użytkowników";
+}
+
+<h2>Lista użytkowników</h2>
+
+@Html.Partial("Filter", Model.CustomerFilterViewModel)
+<br />
+
+@Html.Grid(Model.CustomerPagedList).Columns(column =>
+{
+    column.For(a => a.LastName);
+    column.For(a => a.FirstName);
+    column.For(a => a.City);
+    column.For(a => a.ZipCode);
+    column.For(a => a.Street);
+    column.For(a => a.IsActive);
+    column.For(a => a.RegistrationDate);
+    column.For(a => @Html.ActionLink("Edytuj", "Edit", new { id = a.Id }));
+    column.For(a => @Html.ActionLink("Usuń", "Delete", new { id = a.Id }));
+}).Sort(Model.GridSortOptions).Attributes(@class => "table-list").Empty("Brak danych")
+
+@Html.Pager(Model.CustomerPagedList).Format("Elementy {0} - {1} z {2}  ").SingleFormat("Element {0} z {1} ").First("| Pierwsza").Last(" Ostatnia").Next(" Następna").Previous(" Poprzednia")
+

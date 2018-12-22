@@ -1,0 +1,56 @@
+﻿@model Katalog.Models.Customer
+
+@{
+    ViewBag.Title = "Usuwanie użytkownika";
+}
+
+<h2>Usuwanie użytkownika</h2>
+
+<h3>Czy jesteś pewny, że chcesz usunąć tego użytkownika?</h3>
+<fieldset>
+    <legend> Usuń użytkownika </legend>
+
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.City)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.City)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.ZipCode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ZipCode)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Street)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Street)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="Usuń" /> |
+        @Html.ActionLink("Wróć do listy użytkowników", "Index")
+    </p>
+}

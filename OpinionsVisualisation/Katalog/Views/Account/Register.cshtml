@@ -1,0 +1,157 @@
+﻿@model Katalog.Models.RegisterModel
+@{
+    ViewBag.Title = "Zarejestruj";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>RegisterModel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ConfirmPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ConfirmPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsProvider)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(model => model.IsProvider, new { id = "check", onclick = "if ($('#check').attr('checked') == 'checked') { $('#provider').show();  $('#customer').hide();} else {$('#provider').hide();  $('#customer').show();}" })
+            @Html.ValidationMessageFor(model => model.IsProvider)
+        </div>
+
+        <div id="customer">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.LastName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FirstName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.City)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Street)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Street)
+            @Html.ValidationMessageFor(model => model.Street)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ZipCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ZipCode)
+            @Html.ValidationMessageFor(model => model.ZipCode)
+        </div>
+        <div id="provider">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PhoneNumber)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PhoneNumber)
+                @Html.ValidationMessageFor(model => model.PhoneNumber)
+            </div>
+        </div>
+        
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Captcha)
+            <a href="#capa" onclick="javascript:getCaptcha();">
+                <img id="cap" alt="Captcha" src="@Url.Action("CaptchaImage", "Account", null, "http")" />
+            </a>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Captcha)
+            @Html.ValidationMessageFor(model => model.Captcha)
+        </div>
+
+
+
+        <p>
+            <input type="submit" value="Zarejestruj" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Wróć do strony głównej", "Index", "Home")
+</div>
+
+<script type="text/javascript">
+    function getCaptcha() {
+        $("#cap").attr('src', '@Url.Action("CaptchaImage")?' + new Date().getTime());
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($("#check").attr("checked") == "checked") {
+                $("#provider").show();
+                $("#customer").hide();
+            }
+            else {
+                $("#provider").hide();
+                $("#customer").show();
+            }
+        })
+    </script>
+}

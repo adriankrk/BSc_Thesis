@@ -1,0 +1,22 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <text>
+        Jesteś zalogowany jako  @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Zmień hasło" })!
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a>
+        }
+    </text>
+}
+else
+{
+    @*<ul>
+        <li>@Html.ActionLink("Rejestruj", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>*@
+
+    <button onclick="location.href='@Url.Action("Register", "Account", routeValues: null)';return false;">Rejestruj</button>
+    <button onclick="location.href='@Url.Action("Login", "Account", routeValues: null)';return false;">Zaloguj</button>
+
+}

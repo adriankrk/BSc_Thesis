@@ -1,0 +1,46 @@
+﻿@model Katalog.Models.Comment
+
+@{
+    ViewBag.Title = "Dodawanie komentarza";
+}
+
+<h2>Dodawanie komentarza</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Dodaj komentarz</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Content)
+            @Html.ValidationMessageFor(model => model.Content)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CommentCategory)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.CommentCategoryId, ViewData["CommentCategories"] as IEnumerable<SelectListItem>)
+            @Html.ValidationMessageFor(model => model.CommentCategoryId)
+        </div>
+
+        <p>
+            <input type="submit" value="Dodaj" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Wróć do usługi", "Details", "Company", new { id = Model.ServiceId }, null)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

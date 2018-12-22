@@ -1,0 +1,46 @@
+﻿@model Katalog.ViewModels.CompanyListContainerViewModel
+
+@using MvcContrib.UI.Grid
+@using MvcContrib.UI.Pager
+
+@{
+    ViewBag.Title = "Lista firm";
+}
+
+<h2>Lista firm</h2>
+    @Html.Partial("Filtr", Model.CompanyFilteredViewModel)
+<br />
+
+@Html.Grid(Model.CompanyPagedList).Columns(column =>
+{
+    column.For(a => Html.ActionLink(a.Name, "Details", new { id = a.Id })).Named("Nazwa").SortColumnName("Name");
+    column.For(a => a.CategoryName);
+    column.For(a => a.UserName);
+
+    if (User.IsInRole("ServiceProvider"))
+    {
+        column.For(a => (a.UserId == WebSecurity.CurrentUserId) ? Html.ActionLink("Edytuj", "Edit", new { id = a.Id }) : null);
+        column.For(a => (a.UserId == WebSecurity.CurrentUserId) ? Html.ActionLink("Usuń", "Delete", new { id = a.Id }) : null);
+    };
+
+    if (User.IsInRole("Administrator"))
+    {
+        column.For(a => a.AddressIP);
+        column.For(a => Html.ActionLink("Edytuj", "Edit", new { id = a.Id }));
+        column.For(a => Html.ActionLink("Usuń", "Delete", new { id = a.Id }));
+    };
+
+}).Sort(Model.GridSortOptions).Empty("Brak danych").Attributes(@class => "table-list")
+
+<br />
+@Html.Pager(Model.CompanyPagedList).Format("Elementy {0} - {1} z {2}  ").SingleFormat("Element {0} z {1} ").First("| Pierwsza").Last(" Ostatnia").Next(" Następna").Previous(" Poprzednia")
+
+<p>
+
+    @if (User.IsInRole("Administrator") || User.IsInRole("ServiceProvider"))
+    {
+        <br />
+        <button onclick="location.href='@Url.Action("Create", "Company")';return false;">Dodaj nową firmę</button>
+    }
+
+</p>

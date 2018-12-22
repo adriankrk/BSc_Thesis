@@ -1,0 +1,29 @@
+﻿@model Katalog.Models.ServiceProviderListContainerViewModel
+@using MvcContrib.UI.Grid
+@using MvcContrib.UI.Pager
+
+@{
+    ViewBag.Title = "Lista użytkowników dodających wpisy";
+}
+
+<h2>Lista użytkowników dodających wpisy</h2>
+@Html.Partial("Filtr", Model.ServiceProviderFilterViewModel)
+<br />
+
+@Html.Grid(Model.ServiceProviderPagedList).Columns(column =>
+{
+    column.For(a => Html.ActionLink(a.Name, "Details", new { id = a.Id })).Named("Nazwa").SortColumnName("Name");
+    column.For(a => a.City);
+    column.For(a => a.ZipCode);
+    column.For(a => a.Street);
+    column.For(a => a.PhoneNumber);
+    if (User.IsInRole("Administrator"))
+    {
+        column.For(a => a.IsActive);
+        column.For(a => a.RegistrationDate);
+        column.For(a => @Html.ActionLink("Edytuj", "Edit", new { id = a.Id }));
+        column.For(a => @Html.ActionLink("Usuń", "Delete", new { id = a.Id }));
+    }
+}).Sort(Model.GridSortOptions).Attributes(@class => "table-list").Empty("Brak danych")
+
+@Html.Pager(Model.ServiceProviderPagedList).Format("Elementy {0} - {1} z {2}  ").SingleFormat("Element {0} z {1} ").First("| Pierwsza").Last(" Ostatnia").Next(" Następna").Previous(" Poprzednia")

@@ -1,0 +1,24 @@
+﻿@model Katalog.Models.ServiceProviderFilterViewModel
+@using (Html.BeginForm("Index", "ServiceProvider", FormMethod.Get, new { id = "providerSearch" }))
+{
+    <div id="searchFilter">
+        <table>
+            <tr>
+                <td>@Html.Label("Nazwa")</td>
+                <td>@Html.TextBox("name", Model.Name, new { size = 30, maxlength = "40" })</td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Miasto")</td>
+                <td>@Html.TextBox("city", Model.City, new { size = 30, maxlength = "40" })</td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Ulica")</td>
+                <td>@Html.TextBox("street", Model.Street, new { size = 30, maxlength = "40" })</td>
+            </tr>
+        </table>
+        <span>
+            <input type="submit" value="Filtruj" />
+        </span>
+    </div>
+}
+

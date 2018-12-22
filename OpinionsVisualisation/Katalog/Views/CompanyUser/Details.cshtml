@@ -1,0 +1,97 @@
+﻿@model Katalog.Models.ServiceProviderServicesListContainerViewModel
+
+@using MvcContrib.UI.Grid
+@using MvcContrib.UI.Pager
+
+
+@{
+    ViewBag.Title = "Szczegóły użytkownika dodajacego wpisy";
+}
+
+<h2>Szczegóły użytkownika dodającego wpisy</h2>
+<fieldset>
+    <legend>Szczegóły użytkownika dodającego wpisy</legend>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.ServiceProvider.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ServiceProvider.Name)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.ServiceProvider.City)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ServiceProvider.City)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.ServiceProvider.ZipCode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ServiceProvider.ZipCode)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.ServiceProvider.Street)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ServiceProvider.Street)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.ServiceProvider.PhoneNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ServiceProvider.PhoneNumber)
+    </div>
+
+</fieldset>
+
+<p>
+
+    @if (User.IsInRole("Administrator"))
+    {
+        @Html.ActionLink("Edytuj dane użytkownika dodajacego wpisy", "Edit", new { id = Model.ServiceProvider.Id })
+        @Html.Display("|")
+    }
+
+    @Html.ActionLink("Wróć do listy użytkowników", "Index")
+
+</p>
+
+<h2>Aktywne usługi</h2>
+@Html.Partial("Firmy_Filtr", Model.Services.ServiceFilterViewModel)
+<br />
+
+@Html.Grid(Model.Services.ServicePagedList).Columns(column =>
+    {
+        column.For(a => Html.ActionLink(a.Name, "Details", "Katalog", new { id = a.Id }, null)).Named("Nazwa").SortColumnName("Name");
+        column.For(a => a.Content);
+        column.For(a => a.PostedDate);
+        
+        column.For(a => a.CategoryName);
+
+        if (User.IsInRole("ServiceProvider") || User.IsInRole("Administrator"))
+        {
+            column.For(a => (a.UserId == WebSecurity.CurrentUserId) ? a.IPAddress : "");
+        };
+
+
+        if (User.IsInRole("ServiceProvider"))
+        {
+            column.For(a => (a.UserId == WebSecurity.CurrentUserId) ? Html.ActionLink("Edytuj", "Edit", "Katalog", new { id = a.Id }, null) : null);
+            column.For(a => (a.UserId == WebSecurity.CurrentUserId) ? Html.ActionLink("Usuń", "Delete", "Katalog", new { id = a.Id }, null) : null);
+        };
+
+        if (User.IsInRole("Administrator"))
+        {
+            column.For(a => Html.ActionLink("Edytuj", "Edit", "Katalog", new { id = a.Id }, null));
+            column.For(a => Html.ActionLink("Usuń", "Delete", "Katalog", new { id = a.Id }, null));
+        };
+
+
+    }).Sort(Model.Services.GridSortOptions).Attributes(@class => "table-list").Empty("Brak aktywnych wpisów")
+
+@Html.Pager(Model.Services.ServicePagedList).Format("Elementy {0} - {1} z {2}  ").SingleFormat("Element {0} z {1} ").First("| Pierwszy").Last(" Ostatnii").Next(" Następny").Previous(" Poprzedni")

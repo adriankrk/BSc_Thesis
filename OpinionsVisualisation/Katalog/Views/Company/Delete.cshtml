@@ -1,0 +1,48 @@
+﻿@model Katalog.Models.Company
+
+@{
+    ViewBag.Title = "Usuwanie firmy";
+}
+
+<h2>Usuwanie firmy</h2>
+
+<h3>Czy chcesz usunąć firmę?</h3>
+<fieldset>
+    <legend>Firma</legend>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.Address)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.PostedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PostedDate)
+    </div>
+    
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="Usuń" /> |
+        <button onclick="location.href='@Url.Action("Index", "Company")';return false;">Wróć do listy</button>
+    </p>
+}

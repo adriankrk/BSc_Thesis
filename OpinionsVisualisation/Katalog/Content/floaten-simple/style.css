@@ -1,0 +1,288 @@
+body {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #F1F1F1;
+	background: #CCC url(../images/bg.jpg) no-repeat top;
+	text-align: center;
+	margin: 0;
+}
+
+#wrapper {
+	width: 945px;
+	margin: 0 auto;
+	text-align: left;
+}
+
+a {
+	color: #c90053;
+	text-decoration: none;
+}
+
+p {
+	color: #777;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#logo {
+	float: left;
+	padding-top: 20px;
+	padding-left: 20px;
+}
+
+#logo h2 {
+	font-size: 28px;
+	font-weight: normal;
+	color: #000;
+	text-shadow: #fff 0px 1px 0px;
+}
+
+#logo a, #logo img {
+	text-decoration: none;
+	border: 0px;
+}
+
+#menu {
+	width: 960px;
+	height: 80px;
+	float: left;
+	background: #FFF;
+}
+
+#menu ul {
+	list-style: none;
+	margin: 0;
+	height: 50px;
+	padding: 0px 0px 0px 0px;
+}
+
+#menu li {
+	display: block;
+	float: left;
+	font-family: Arial;
+	color: #FFF;
+	margin-left: 15px;	
+	margin-top: 15px;
+	
+
+}
+
+#menu a {
+	color: #222;
+	font-size: 16px;
+	display: block;
+	float: left;
+	text-decoration: none;
+	text-transform: none;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	padding: 15px;
+	border: 1px solid #FFF;
+}
+
+#menu a:hover {
+	border: 1px solid #CCC;
+}
+
+#search_top {
+	float: right;
+	padding-top: 25px;
+	padding-right: 50px;
+	
+}
+
+#search_top input {
+	border: 1px solid #999;
+	padding: 5px;
+	color: #000;
+	background: url(../images/search.png) no-repeat right;
+}
+	
+#header {
+	float: left;
+	width: 960px;
+	height: 357px;
+	background: url(../images/bg_header.jpg) no-repeat;
+}
+
+#title_head {
+	margin-top: 50px;
+	background: url(../images/bg_trs.png);
+	float: right;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#title_head h2 {
+	color: #fff;
+	font-size: 28px;
+	font-weight: normal;
+	text-transform: uppercase;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+#title_head p {
+	color: #666;
+	font-size: 16px;
+	text-shadow: #FFF 0px 1px 0px;
+}
+
+#title_head a {
+	padding: 5px;
+	background: #C9C9C9;
+	color: #444;
+}
+
+#title_head a:hover {
+	color: #333;
+}
+
+#head_image {
+	float: right;
+	margin-left: 20px;
+	margin-right: 20px;
+	width: 500px;
+}
+
+.margin1 {
+	margin-left: 15px;
+}
+
+.margin2 {
+	margin-left: 25px;
+}
+
+.margin3 {
+	margin-top: 10px;
+}
+
+.margin4 {
+	margin-left: 45px;
+}
+
+#box_news {
+	float: left;
+	width: 530px;
+	padding: 5px;
+	margin-left: 30px;
+	font-family: Arial;
+	padding-right: 50px;
+}
+
+#box_news h2, #box_sidebar h2 {
+	font-size: 22px;
+	text-transform: none;
+	color: #000;
+}
+
+#box_news p, #box_sidebar p {
+	color: #777;
+	line-height: 23px;
+	text-align: left;
+	font-size: 12px;
+}
+
+#box_news img {
+	border: 1px solid #999;
+	padding: 5px;
+	margin-right: 25px;
+}
+
+#box_sidebar {
+	width: 250px;
+	float: left;
+	padding: 5px;
+	padding-left: 50px;
+	padding-right: 20px;
+	border-left: 1px solid #CCC;
+}
+
+#box_sidebar a {
+	color: #000;
+	font-size: 16px;
+}
+
+#box_sidebar span {
+	color: #777;
+	padding-top: 10px;
+}
+
+#container {
+	float: left;
+	margin-bottom: 10px;
+	width: 960px;
+	background: #fff;
+	padding-top: 30px;
+}
+
+h2 {
+	font-size: 22px;
+	font-weight:normal;
+	color: #a74328;
+}
+
+#content_box {
+	width: 960px;
+	padding: 10px;
+	float: left;
+	text-align: justify;
+	border-top: 1px solid #CCC;
+}
+
+#content_box h2 {
+	font-size: 18px;
+	font-weight: normal;
+	font-family:"Trebuchet MS", Tahoma, Arial, Helvetica, Sans-serif;
+	color: #FFF;
+	padding: 0 0 5px 0;
+}
+
+#content_box p {
+	font-family: Arial;
+	font-size: 12px;
+	line-height: 22px;
+	color: #777;
+}
+
+#content_box a {
+	color: #555;
+	font-size: 13px;
+	display: block;
+	float: left;
+	padding: 5px 10px 5px 15px;
+	text-decoration: none;
+}
+
+#content_box a:hover {
+	color: #333;
+}
+
+#box_content {
+	width: 260px;
+	float: left
+}
+
+#box_content img {
+	padding: 5px;
+	border: 1px solid #CCC;
+}
+
+#box_content h2 {
+	color: #000;
+	font-size: 26px;
+}
+
+
+#footer {
+	width: 900px;
+	float: left;
+	font-size: 12px;
+	margin: 0 auto;
+	color: #000;
+	padding-left: 10px;
+}
+
+#footer a {
+	color: #555;
+}

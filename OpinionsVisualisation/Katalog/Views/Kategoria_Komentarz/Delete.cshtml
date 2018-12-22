@@ -1,0 +1,34 @@
+﻿@model Katalog.Models.CommentCategory
+
+@{
+    ViewBag.Title = "Usuwanie kategorii komentarza";
+}
+
+<h2>Usuwanie kategorii komentarza</h2>
+
+<h3>Czy chcesz usunąć kategorię komentarza?</h3>
+
+    <fieldset>
+        <legend>Usuń kategorię komentarzy</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="display-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        
+    </fieldset>
+
+
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="Usuń" /> |
+        @Html.ActionLink("Wróć do listy", "Index")
+    </p>
+}

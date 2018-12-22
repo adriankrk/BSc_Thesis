@@ -1,0 +1,37 @@
+﻿@model Katalog.Models.Category
+
+@{
+    ViewBag.Title = "Dodawanie kategorii";
+}
+
+<h2>Dodawanie kategorii</h2>
+
+@using (Html.BeginForm())
+{
+    
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Category</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <p>
+            <input type="submit" value="Zapisz" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Wróć do listy", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

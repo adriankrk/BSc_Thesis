@@ -1,0 +1,215 @@
+﻿@model Katalog.ViewModels.CompanyDetailsViewModel
+
+@using MvcContrib.UI.Grid
+@using MvcContrib.UI.Pager
+@using Katalog
+
+@{
+    ViewBag.Title = "Szczegóły firmy";
+}
+
+<h2>Szczegóły firmy</h2>
+
+<fieldset>
+    <legend>Dane firmy</legend>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.Company.Name)
+                        </div>
+                    </th>
+                    <th>
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.Company.CategoryName)
+                        </div>
+                    </th>
+                    <th>
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.Company.WebPage)
+                        </div>
+                    </th>
+                    <th>
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.Company.Address)
+                        </div>
+                    </th>
+                    <th>
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.Company.Phone)
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Company.Name)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Company.CategoryName)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayWithLinksFor(model => model.Company.WebPage)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Company.Address)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Company.Phone)
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.Company.Description)
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Company.Description)
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Strony www z opiniami na temat pracy</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.Company.AbsolventWebPage)
+                        </div>
+                    </th>
+                    <th>
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.Company.GoldenLineWebPage)
+                        </div>
+                    </th>
+                    <th>
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.Company.GoworkWebPage)
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayWithLinksFor(model => model.Company.AbsolventWebPage)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayWithLinksFor(model => model.Company.GoldenLineWebPage)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="display-field">
+                            @Html.DisplayWithLinksFor(model => model.Company.GoworkWebPage)
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</fieldset>
+
+<p>
+    @if ((User.IsInRole("ServiceProvider") && Model.Company.UserId == WebSecurity.CurrentUserId) || User.IsInRole("Administrator"))
+    {
+        <button onclick="location.href='@Url.Action("Edit", "Company", new { id = Model.Company.Id })';return false;">Edytuj</button>
+        <button onclick="location.href='@Url.Action("Delete", "Company", new { id = Model.Company.Id })';return false;">Usuń</button>
+    }
+</p>
+
+<p>
+    <button onclick="location.href='@Url.Action("Index", "Company")';return false;">Wróć do listy</button>
+</p>
+
+
+<p>
+
+    <h2>Opinie</h2>
+
+    @Html.Grid(Model.Opinions).Columns(column =>
+                                                             {
+                                                                 column.For(a => a.Content);
+                                                                 column.For(a => a.Classification);
+                                                             }).Empty("Brak pobranych opinii").Attributes(@class => "table-list")
+
+    <br />
+    @Html.Pager(Model.Opinions).Format("Elementy {0} - {1} z {2}  ").SingleFormat("Element {0} z {1} ").First("| Pierwsza").Last(" Ostatnia").Next(" Następna").Previous(" Poprzednia")
+
+    <br />
+    @if (Model.Opinions.TotalItems == 0)
+    {
+        <button onclick="location.href='@Url.Action("DownloadOpinions", "Company",  new { id = Model.Company.Id })';return false;">Pobierz opinie</button>
+    }
+
+    @if (Model.Opinions.TotalItems != 0)
+    {
+        <button onclick="location.href='@Url.Action("DeleteOpinions", "Company", new { id = Model.Company.Id })';return false;">Usuń opinie</button>
+    }
+
+</p>
+
+@if (Model.ConfirmedUser || User.IsInRole("Administrator"))
+{
+
+    <h2>Komentarze</h2>
+
+    @Html.Grid(Model.CommentPagedList).Columns(column =>
+                                {
+                                    column.For(a => a.User);
+                                    column.For(a => a.Date);
+                                    column.For(a => a.Content);
+                                    column.For(a => a.CommentCategory);
+
+                                    if (User.IsInRole("Administrator"))
+                                    {
+                                        column.For(a => a.IPAddress);
+
+                                        column.For(a => Html.ActionLink("Edytuj", "Edit", "Komentarz", new { id = a.Id }, null));
+                                        column.For(a => Html.ActionLink("Usuń", "Delete", "Komentarz", new { id = a.Id }, null));
+                                    };
+
+                                }).Empty("Brak komentarzy").Attributes(@class => "table-list")
+
+    @Html.Pager(Model.CommentPagedList).Format("Elementy {0} - {1} z {2}  ").SingleFormat("Element {0} z {1} ").First("| Pierwsza").Last(" Ostatnia").Next(" Następna").Previous(" Poprzednia")
+
+    <p>
+        @if (User.IsInRole("ServiceProvider") || User.IsInRole("Administrator") || User.IsInRole("Customer"))
+        {
+            <button onclick="location.href='@Url.Action("Create", "Komentarz", new { id = Model.Company.Id })';return false;">Dodaj komentarz</button>
+        }
+    </p>
+}
+
+
+
+

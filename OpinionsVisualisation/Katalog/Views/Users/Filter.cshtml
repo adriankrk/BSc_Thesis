@@ -1,0 +1,28 @@
+﻿@model Katalog.Models.CustomerFilterViewModel
+
+@using (Html.BeginForm("Index", "Users", FormMethod.Get, new { id = "customerSearch" }))
+{
+    <div id="searchFilter">
+        <table>
+            <tr>
+                <td>@Html.Label("Imię")</td>
+                <td>@Html.TextBox("firstName", Model.FirstName, new { size = 30, maxlength = "40" })</td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Nazwisko")</td>
+                <td>@Html.TextBox("lastName", Model.LastName, new { size = 30, maxlength = "40" })</td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Miasto")</td>
+                <td>@Html.TextBox("city", Model.City, new { size = 30, maxlength = "40" })</td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Ulica")</td>
+                <td>@Html.TextBox("street", Model.Street, new { size = 30, maxlength = "40" })</td>
+            </tr>
+        </table>
+        <span>
+            <input type="submit" value="Filtruj" />
+        </span>
+    </div>
+}

@@ -1,0 +1,26 @@
+﻿@model Katalog.Models.ServiceFilterViewModel
+
+@{var htmlAttributes = new Dictionary<string, object> { { "data-autopostback", "true" } }; }
+
+@using (Html.BeginForm("Details", "ServiceProvider", FormMethod.Get, new { id = "serviceSearch" }))
+{
+    <div id="searchFilter">
+        <table>
+            <tr>
+                <td>@Html.Label("Nazwa")</td>
+                <td>@Html.TextBox("name", Model.ServiceName, new { size = 40, maxlength = "40" })</td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Treść")</td>
+                <td>@Html.TextBox("content", Model.ServiceContent, new { size = 20, maxlength = "30" })</td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Kategoria")</td>
+                <td>@Html.DropDownList("categoryId", Model.Categories, "-- Wszystkie --", htmlAttributes)</td>
+            </tr>
+        </table>
+        <span>
+            <input type="submit" value="Filtruj" />
+        </span>
+    </div>
+}

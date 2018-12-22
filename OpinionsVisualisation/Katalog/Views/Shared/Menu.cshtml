@@ -1,0 +1,51 @@
+﻿@Scripts.Render("~/Scripts/jquery-1.7.1.js")
+@Styles.Render("~/Content/Menu.css")
+
+<ul class="dropdown">
+    <li>@Html.ActionLink("Strona główna   ", "Index", "Home")</li>
+    @if (!Request.IsAuthenticated)
+    {
+        <li>@Html.ActionLink("Rejestracja", "Register", "Account")</li>
+    }
+
+    <li>@Html.ActionLink("Firmy   ", "Index", "Company")</li>
+    <li>@Html.ActionLink("Wizualizacja opinii ", "Index", "Visualization")</li>
+    @if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+    {
+        <li>
+            @Html.ActionLink("Panel zarządzania", null)
+
+            <ul class="sub_menu">
+                <li>@Html.ActionLink("Kategorie", "Index", "Kategoria")</li>
+                <li>@Html.ActionLink("Kategorie komentarzy", "Index", "Kategoria_Komentarz")</li>
+                <li>@Html.ActionLink("Zarządzaj użytkownikami", "Index", "Users")</li>
+                <li>@Html.ActionLink("Zarządzaj użytkownikami dodającymi wpisy", "Index", "CompanyUser")</li>
+
+            </ul>
+        </li>
+    }
+    @if (Request.IsAuthenticated && User.IsInRole("ServiceProvider"))
+    {
+
+        <li>
+            <a href="#">Panel zarządzania</a>
+
+            <ul class="sub_menu">
+                <li>@Html.ActionLink("Zmień hasło", "Manage", "Account")</li>
+                <li>@Html.ActionLink("Zmień dane", "Change", "ServiceProvider") </li>
+            </ul>
+        </li>
+
+    }
+    @if (Request.IsAuthenticated && Context.User.IsInRole("Customer"))
+    {
+        <li>
+            <a href="#">Panel zarządzania</a>
+
+            <ul class="sub_menu">
+                <li>@Html.ActionLink("Zmień hasło", "Manage", "Account")</li>
+                <li>@Html.ActionLink("Zmień dane", "Change", "Customer") </li>
+            </ul>
+        </li>
+    }
+</ul>

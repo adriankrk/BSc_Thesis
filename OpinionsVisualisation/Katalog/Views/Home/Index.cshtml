@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Katalog.ViewModels.CompanyViewModel>
+@{
+    ViewBag.Title = "Strona główna";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Message</h1>
+            </hgroup>
+
+        </div>
+    </section>
+}
+<h3>Nowe wpisy</h3>
+<div>
+    <ul>
+        @{
+            foreach (var item in Model)
+            {
+                <li>
+                    <strong>@Html.DisplayFor(a => item.PostedDate)</strong>
+                    <strong>@Html.ActionLink(item.Name, "Details", "Company", new { id = item.Id }, null) </strong>
+                    dodane przez
+                    <strong>@Html.DisplayFor(a => item.UserName)  </strong>
+                </li>
+            }
+        }
+    </ul>
+</div>

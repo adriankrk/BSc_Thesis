@@ -1,0 +1,100 @@
+﻿@model Katalog.ViewModels.CompanyCreateEditViewModel
+@{
+    ViewBag.Title = "Dodawanie firmy";
+}
+
+<h2>Dodawanie firmy</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Dodaj firmę</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Company.Name)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Company.Name)
+            @Html.ValidationMessageFor(model => model.Company.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Company.CategoryId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Company.CategoryId, ViewData["Categories"] as IEnumerable<SelectListItem>)
+            @Html.ValidationMessageFor(model => model.Company.CategoryId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Company.Description)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Company.Description)
+            @Html.ValidationMessageFor(model => model.Company.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Company.Address)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Company.Address)
+            @Html.ValidationMessageFor(model => model.Company.Address)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Company.Phone)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Company.Phone)
+            @Html.ValidationMessageFor(model => model.Company.Phone)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Company.WebPage)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Company.WebPage)
+            @Html.ValidationMessageFor(model => model.Company.WebPage)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Company.AbsolventWebPage)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Company.AbsolventWebPage)
+            @Html.ValidationMessageFor(model => model.Company.AbsolventWebPage)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Company.GoldenLineWebPage)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Company.GoldenLineWebPage)
+            @Html.ValidationMessageFor(model => model.Company.GoldenLineWebPage)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Company.GoworkWebPage)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Company.GoworkWebPage)
+            @Html.ValidationMessageFor(model => model.Company.GoworkWebPage)
+        </div>
+
+        <p>
+            <input type="submit" value="Dodaj" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    <button onclick="location.href='@Url.Action("Index", "Company")';return false;">Wróć do listy</button>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
